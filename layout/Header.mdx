@@ -1,0 +1,36 @@
+<Box
+  flex
+  as="header"
+  sx={{
+    variant: 'styles.header',
+    border: t => `1px solid ${t.colors.muted}`,
+    px: 0
+  }}
+>
+  <Flex
+    sx={{
+      maxWidth: 768,
+      mx: 'auto',
+      px: 0,
+      alignItems: 'center',
+    }}>
+    <Link as="a" href='/'
+      sx={{
+        variant: 'styles.navlink',
+        fontSize: 5,
+        fontWeight: '500',
+        py: 2,
+      }}>
+      😊
+    </Link>
+    <Box sx={{ mx: 'auto' }} />
+    <Link as="a" href='/about'
+      sx={{
+        variant: 'styles.navlink',
+        ml: 3,
+        py: 2,
+      }}>
+      About
+    </Link>
+  </Flex>
+</Box>

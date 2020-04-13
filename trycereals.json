@@ -1,0 +1,17 @@
+{
+  "pages": [{
+    "slug": "about",
+    "path": "pages/about.mdx",
+    "type": "MDX"
+  },
+  {
+    "slug": "index",
+    "path": "pages/index.mdx",
+    "type": "MDX"
+  }],
+  "layout": [{
+    "slug": "header",
+    "path": "layout/Header.mdx",
+    "type": "MDX"
+  }]
+}
