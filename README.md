@@ -1,5 +1,7 @@
 ## blog
 
+http://youthful-sammet-3797c7.netlify.com
+
 This folder has been generated with an upcoming version of [https://trycereals.com](https://trycereals.com) ✌️
 
 I'm not sure exactly what I want to write _yet_.
