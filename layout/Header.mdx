@@ -1,5 +1,5 @@
 <Box
-  flex
+  noContainer
   as="header"
   sx={{
     variant: 'styles.header',
@@ -9,21 +9,28 @@
 >
   <Flex
     sx={{
-      maxWidth: 768,
       mx: 'auto',
-      px: 0,
+      px: 4,
       alignItems: 'center',
     }}>
     <Link as="a" href='/'
       sx={{
         variant: 'styles.navlink',
-        fontSize: 5,
+        fontSize: 3,
         fontWeight: '500',
         py: 2,
       }}>
-      😊
+      hypervillain
     </Link>
     <Box sx={{ mx: 'auto' }} />
+    <Link as="a" href='/blog'
+      sx={{
+        variant: 'styles.navlink',
+        ml: 3,
+        py: 2,
+      }}>
+      Blog
+    </Link>
     <Link as="a" href='/about'
       sx={{
         variant: 'styles.navlink',
