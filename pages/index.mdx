@@ -1,13 +1,13 @@
-import { Section, List, Paragraph } from '../customs'
+import { Serif, Section, List, Paragraph, SectionScroll, AnchorLink } from '../customs'
 
-<Section px={0} py={0} sx={{ px: 0 }}>
+<Section className="section" px={0} py={0} sx={{ px: 0 }}>
   <Box
     flex
-    py={4}
+    py={[4]}
     bg='muted'
   >
     <Flex
-      px={4}
+      px={[3, 4, 2, 4]}
       sx={{
         alignItems: 'center',
       }}>
@@ -23,40 +23,64 @@ import { Section, List, Paragraph } from '../customs'
           Hi, anon.
         </Heading>
         <Text as="p" mt={2}>
-          My name is Hugo Villain but I've been mostly described as <em>the cheerful dude with tinnitus</em>. I'm also software engineer, currently employed at <a href="https://prismic.io">Prismic</a>.
+          My name is Hugo Villain but I usually go by <em>hypervillain</em> on all things  social media.
         </Text>
         <Text as="p" mt={2}>
-          These days, I'm mostly interested in becoming a DX engineer. I have a strong interest in finding creative ways of using software like Babel, UnifiedJS, and formats like MDX.
+          I am the maker of <Link as="a" target="_blank" href="https://trycereals.com">TryCereals</Link> and <Link as="a" target="_blank" href="https://lebonrap.fr">LeBonRap</Link>.
         </Text>
         <Text as="p" mt={2}>
-          I've been super inspired by products offering a Git-centric experience to developers.
+          I also work as a software engineer. I have been employed at <Link as="a" target="_blank" href="https://prismic.io">Prismic</Link> for over a year.
         </Text>
+        {/* <Text as="p" mt={2}>
+          These days, I'm mostly interested in becoming something like a DX engineer.
+        </Text> */}
       </Box>
     </Flex>
   </Box>
 
 </Section>
 
-<Section alignTop>
+<SectionScroll sx={{ maxWidth: ['auto', 'auto', '25vw']}}>
 
 Although being super dedicated, I’ve struggled at achieving things for a long time and I need to gain a better understanding of what helps me succeed and what doesn’t.
 
-Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+- Get a deeper understanding of ASTs 
+<Serif bold as="span"><AnchorLink href="#note-1">[1]</AnchorLink></Serif>
+- Create more developer tools
+- Release a low-code platform
 
-<Image my={2} src="/villainville.jpg" />
+Although I've been coding for some years now, I consider myself far from being a proven developer yet.
 
-Please remember me as the soon-to-be mayor of Villainville
+##### this year
+I have been working on somehting intersting. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make.
 
-</Section>
+I algo got diagnosed with tinnitus.
+It's been super rough I and still try to think of how I'm going to live my life.
+
+I algo got diagnosed with tinnitus.
+
+<hr style={{ borderColor: '#111'}} />
+
+<Serif bold sx={{ mb: 1, px: 0, fontSize: '15px', color: '#111' }}>
+  [1] Creative uses of syntax trees. Like this attempt.
+</Serif>
+<Serif bold sx={{ mb: 1, px: 0, fontSize: '15px', color: '#111' }}>
+  [2] See TryCereals.
+</Serif>
+<Serif bold sx={{ mb: 1, px: 0, fontSize: '15px', color: '#111' }}>
+  [3] I'm talking about creative ways to use syntax trees. Like this attempt.
+</Serif>
+
+</SectionScroll>
 
 <Section px={0} alignTop i={3}>
 
-<Text mb={2} px={[4, 4, 2, 4]}>
+<Text mb={2} px={[3, 4, 2, 4]}>
 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.. To finish, it connected the two
 and triggered a new deployment!
 </Text>
 
-<Paragraph my={1} mt={0}>these days I mostly care of</Paragraph>
+<Paragraph my={1} mt={0}><b>These days</b> I mostly work on</Paragraph>
 
 <List>
 
@@ -100,9 +124,20 @@ and triggered a new deployment!
 
 </Section>
 
-<Section sx={{ minHeight: '40vh' }}>
+<Section sx={{ minHeight: '50vh', maxWidth: ['auto', 'auto', '25vw'] }}>
 
-<Image src="/tyrano.png" width="100%" sx={{ position: 'absolute', bottom: '16px', right: '16px'}} />
+<Box sx={{ pt: 4, display: ['block', 'block', 'none']}}>
+  
+
+#### read more on
+
+<Box mb={2} />
+
+&gt; <Link as="a" href="/blog">le Hypervillain blog</Link><br/>
+&gt; <Link as="a" href="/blog">twitter</Link>
+
+</Box>
+<Image src="/tyrano.png" width="100%" sx={{ position: 'absolute', zIndex: '-1', bottom: '16px', right: '16px'}} />
 </Section>
 
 export const LayoutProps = {
