@@ -1,6 +1,7 @@
-import { Box, Text } from 'theme-ui'
+import { forwardRef, useRef } from 'react'
+import { Link, Box, Text } from 'theme-ui'
 
-const defaultPx = [4, 4, 2, 4]
+const defaultPx = [3, 4, 2, 4]
 
 const cursors = {
   dog: 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAZCAMAAAD63NUrAAAACVBMVEX///8AAAD///9+749PAAAAAXRSTlMAQObYZgAAAFZJREFUeNqdzksKwDAIAFHH+x+6lIYOVPOhs5OHJnES/5UkYKEkU7xjijSIm50iFh4fAXgYDd/yumVVRSwsqq/nRA3xVK0oo06d5U6DpQZ7PV7lMxH7LkaQAbYFwryzAAAAAElFTkSuQmCC),auto',
@@ -13,7 +14,7 @@ const cursors = {
 
 let latest
 function uniqueRand(len) {
-  const i = Math.floor(Math.random() * (len - 1))
+  const i = Math.floor(Math.random() * (len))
   if (i === latest) {
     return uniqueRand(len)
   }
@@ -43,18 +44,35 @@ function findLink(child) {
 }
 
 function cursorStyle(children, cursor) {
-  console.log(children, cursor)
   if (!children) {
     return null
   }
   return React.Children.map(children, (child) => {
-    if (child && child.props && child.props.mdxType === 'a') {
-      console.log('here', child)
+    const { props: { mdxType } = {}} = child
+    if (mdxType && mdxType === 'a') {
       return React.cloneElement(child, { ...child.props, style: { cursor } })
     }
     return child
   })
 }
+
+export const Serif = ({
+  children,
+  sx,
+  bold,
+  ...props
+}) => (
+  <Text
+    {...props}
+    sx={{
+      fontFamily: 'serif',
+      fontWeight: bold ? 600 : 'initial',
+      ...sx
+    }}
+  >
+    {children}
+  </Text>
+)
 
 export const Paragraph = ({
   children,
@@ -69,36 +87,68 @@ export const Paragraph = ({
     {children}
   </Text>
 )
-export const Section = ({
+
+export const AnchorLink = ({
+  children,
+  sx,
+  ...props
+}) => {
+ 
+  const onClick = () => {}
+
+  return (
+    <Link onClick={onClick} sx={{ color: '#111', ...sx }} {...props}>
+      { children }
+    </Link>
+  )
+}
+
+export const Section = forwardRef(({
   children,
   bg,
   p,
   py = 4,
   px = defaultPx,
   sx = {},
-  i
-}) => (
+  ...props
+}, ref) => (
   <Box
     p={p}
     px={px}
     py={py}
+    className="section"
     sx={{
       bg,
       borderRight: ['none', '1px solid rgba(146, 146, 146, .2)'],
       width: '100%',
       position: 'relative',
-      height: ['auto', 'auto', 'calc(100vh - 46px)', 'calc(100vh - 46px)'],
+      height: ['auto', 'auto', 'calc(100vh - 48px)', 'calc(100vh - 48px)'],
       overflow: 'auto',
-      ':first-child > *': {
-        margin: '0'
-      },
       ...sx,
 
-  }}
+    }}
+    ref={ref}
+    {...props}
   >
     { children }
   </Box>
-)
+))
+
+export const SectionScroll = (props) => {
+  const ref = useRef(null)
+  const onAnchorClick = (event) => {
+    const { target } = event
+    const to = target.getAttribute("href")
+    if (to && to.indexOf('#') === 0 && ref.current) {
+      const elem = document.querySelector(`div[name^="${to.slice(1)}"]`)
+      if (elem) {
+        elem.scrollIntoView()
+      }
+      ref.current.scrollTo(0, 9999)
+    }
+  }
+  return <Section {...props} ref={ref} onClick={onAnchorClick} />
+}
 
 export const List = ({
   children
@@ -128,11 +178,6 @@ export const List = ({
   >
     {React.Children.map(children.props.children, (child) => {
       const maybeLink = findLink(child)
-      console.log({
-        maybeLink,
-        child
-      })
-
       const i = uniqueRand(Object.keys(cursors).length)
       const cursor = maybeLink ? Object.entries(cursors)[i][1] : 'initial'
       return React.cloneElement(child, {

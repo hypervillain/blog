@@ -23,7 +23,8 @@ import { Serif, Section, List, Paragraph, SectionScroll, AnchorLink } from '../c
           Hi, anon.
         </Heading>
         <Text as="p" mt={2}>
-          My name is Hugo Villain but I usually go by <em>hypervillain</em> on all things  social media.
+          My name is Hugo Villain but I usually go by&nbsp;
+          <Link as="a" target="_blank" href="https://twitter.com/hypervillain"><em>hypervillain</em></Link> on all things  social media.
         </Text>
         <Text as="p" mt={2}>
           I am the maker of <Link as="a" target="_blank" href="https://trycereals.com">TryCereals</Link> and <Link as="a" target="_blank" href="https://lebonrap.fr">LeBonRap</Link>.
@@ -44,10 +45,13 @@ import { Serif, Section, List, Paragraph, SectionScroll, AnchorLink } from '../c
 
 Although being super dedicated, I’ve struggled at achieving things for a long time and I need to gain a better understanding of what helps me succeed and what doesn’t.
 
-- Get a deeper understanding of ASTs 
+- JS/Jamstack build plugins and tools&nbsp;
 <Serif bold as="span"><AnchorLink href="#note-1">[1]</AnchorLink></Serif>
-- Create more developer tools
-- Release a low-code platform
+- Creative uses of ASTs & compilers&nbsp;
+<Serif bold as="span"><AnchorLink href="#note-2">[2]</AnchorLink></Serif>
+- Jamstack plugins and tools&nbsp;
+<Serif bold as="span"><AnchorLink href="#note-3">[3]</AnchorLink></Serif>
+- Release an MDX low-code platform
 
 Although I've been coding for some years now, I consider myself far from being a proven developer yet.
 
@@ -61,7 +65,7 @@ I algo got diagnosed with tinnitus.
 
 <hr style={{ borderColor: '#111'}} />
 
-<Serif bold sx={{ mb: 1, px: 0, fontSize: '15px', color: '#111' }}>
+<Serif name="note-1" bold sx={{ mb: 1, px: 0, fontSize: '15px', color: '#111' }}>
   [1] Creative uses of syntax trees. Like this attempt.
 </Serif>
 <Serif bold sx={{ mb: 1, px: 0, fontSize: '15px', color: '#111' }}>
@@ -137,7 +141,7 @@ and triggered a new deployment!
 &gt; <Link as="a" href="/blog">twitter</Link>
 
 </Box>
-<Image src="/tyrano.png" width="100%" sx={{ position: 'absolute', zIndex: '-1', bottom: '16px', right: '16px'}} />
+<Image src="/tyrano2.png" width="100%" sx={{ position: 'absolute', zIndex: '-1', bottom: '16px', right: '16px'}} />
 </Section>
 
 export const LayoutProps = {
