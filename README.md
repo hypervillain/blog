@@ -1,6 +1,6 @@
 ## blog
 
-http://youthful-sammet-3797c7.netlify.com
+https://infallible-curie-68187c.netlify.app/
 
 This folder has been generated with an upcoming version of [https://trycereals.com](https://trycereals.com) ✌️
 
