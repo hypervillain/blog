@@ -148,13 +148,14 @@ and triggered a new deployment!
 <Image src="/tyrano.png" width="100%" sx={{ position: 'absolute', zIndex: '-1', bottom: '16px', right: '16px'}} />
 </Section>
 
-export const LayoutProps = {
-  noContainer: true,
+export const ContainerProps = {
+  noContainer: true
 }
 
 export const Layout = ({ children }) => (
   <Flex
-    as="main"
+    noContainer
+    className="layout"
     sx={{
       overflow: 'hidden',
       flexDirection: ['column', 'column', 'row']
@@ -163,6 +164,8 @@ export const Layout = ({ children }) => (
     { children }
   </Flex>
 )
+
+export const hideLayout = false
 
 export const meta = {
   title: 'hypervillain\'s website or the website of Hugo Villain',

@@ -13,8 +13,8 @@ import { List, Cards, Serif, Tiles } from '../../customs'
       flexDirection: ['column', 'row']
     }}>
     <Box>
-      <Heading as="h1" sx={{ fontSize: 6 }}>
-        Le blog.<br />
+      <Heading as="h1">
+        I write here<br />
       </Heading>
       <Text mt={2} sx={{ maxWidth: '440px'}}>
         My name is Hugo Villain and this is my some time to time blog.
@@ -27,10 +27,9 @@ import { List, Cards, Serif, Tiles } from '../../customs'
   </Flex>
 </Box>
 
-<Cards columns={2} flex sxWrap={{ my: 2, mb: 4, bg: 'primary', py: 4 }} sxUl={{ pl: 0 }} sxLi={{ border: '1px solid #111', bg: 'muted', p: 3, my: 0 }}>
-  <Heading as="h3" sx={{ color: '#FFF', fontSize: 4, mb: 4 }}>
-    Syntax trees, the creative way
-  </Heading>
+## Syntax trees, the creative way
+
+<Cards columns={2} flex sxWrap={{ my: 2, mb: 4, py: 4 }} sxUl={{ pl: 0 }} sxLi={{ border: '1px solid #111', bg: 'muted', p: 3, my: 0 }}>
   <ul>
     { Object.entries(db).filter(([_, {from}]) => from.includes('blog')).map(([slug, { excerpt, headline, description, date, title, tags, index }], i) => (
       <li key={slug}>
@@ -45,9 +44,9 @@ import { List, Cards, Serif, Tiles } from '../../customs'
   </ul>
 </Cards>
 
-### Something else, but exciting
+## Something else, but exciting
 
-<Cards columns={1} sxUl={{ pl: 0 }} sxLi={{ bg: 'muted', p: 3, my: 2 }} sxWrap={{ my: 2 }}>
+<Cards columns={1} sxWrap={{ my: 2, mb: 4, py: 4 }} sxUl={{ pl: 0 }} sxLi={{ border: '1px solid #111', bg: 'muted', p: 3, my: 1 }}>
   <ul>
     { Object.entries(db).filter(([_, {from}]) => from.includes('blog')).map(([slug, { excerpt, headline, description, date, title, tags, index }], i) => (
       <li key={slug}>
@@ -67,34 +66,8 @@ import { List, Cards, Serif, Tiles } from '../../customs'
   </ul>
 </Cards>
 
-<List
-  sx={{
-    '&:first-child': { borderTop: 'none' },
-  }}
-  liPx={0}
-  width={320}
->
-  <ul>
-    { Object.entries(db).filter(([_, {from}]) => from.includes('blog')).map(([slug, { excerpt, headline, description, date, title, tags, index }], i) => (
-      <li key={slug}>
-        <Link as="a" href={slug}>
-          {title}&nbsp;
-          </Link>
-        {
-          (excerpt || description) ? <Text as="span" sx={{ display: ['block', 'inline'], maxWiidth: '480px'}}>{excerpt || description}</Text> : ''
-        }
-        {/* <Box sx={{ position: 'absolute', right: '12px', fontWeight: 'thin', display: ['none', 'none', 'initial'] }}>
-          <Text as="span">
-            {date}
-          </Text>
-        </Box> */}
-      </li>
-    ))}
-  </ul>
-</List>
-
 export const ContainerProps = {
-  sx: { maxWidth: '940px' },
+  sx: { maxWidth: '840px' },
   extend: true
 }
 
