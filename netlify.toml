@@ -1,9 +1,10 @@
 [build]
+  base = "next/"
   command = "echo 'hello Netlify build'"
-  publish = "/next/out"
-  functions = "/next/functions"
+  publish = "next/out"
+  functions = "next/functions"
 
 [[plugins]]
-  package = "/next/plugins/api"
+  package = "plugins/api"
   [plugins.inputs]
     exclude = ["/search.html"]
