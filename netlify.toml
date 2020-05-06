@@ -1,7 +1,7 @@
 [build]
   base = "next/"
   command = "yarn build:site"
-  publish = "next/out"
+  publish = "out"
   functions = "next/functions"
 
 
