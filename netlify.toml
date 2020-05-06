@@ -4,6 +4,6 @@
   functions = "/next/functions"
 
 [[plugins]]
-  package = "./next/plugins/api"
+  package = "/next/plugins/api"
   [plugins.inputs]
     exclude = ["/search.html"]
