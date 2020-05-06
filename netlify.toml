@@ -1,0 +1,9 @@
+[build]
+  command = "echo 'hello Netlify build'"
+  publish = "/next/out"
+  functions = "/next/functions"
+
+[[plugins]]
+  package = "./next/plugins/api"
+  [plugins.inputs]
+    exclude = ["/search.html"]

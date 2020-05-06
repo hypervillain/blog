@@ -4,7 +4,7 @@ import { Serif, Section, List, Paragraph, SectionScroll, AnchorLink } from '../c
   <Box
     flex
     py={[4]}
-    bg='muted'
+    bg="muted"
   >
     <Flex
       px={[3, 4, 2, 4]}
@@ -43,17 +43,18 @@ import { Serif, Section, List, Paragraph, SectionScroll, AnchorLink } from '../c
 
 <SectionScroll sx={{ maxWidth: ['auto', 'auto', '25vw']}}>
 
-Although being super dedicated, I’ve struggled at achieving things for a long time and I need to gain a better understanding of what helps me succeed and what doesn’t.
+I have spent these last 5 years building stuff for the web - for myself first, and since 2019 at Prismic.
+I _mostly_ write Javascript but had a prior (one-way) love for C.
+These are the things I am interested in and want to get better at:
 
 - JS/Jamstack build plugins and tools&nbsp;
 <Serif bold as="span"><AnchorLink href="#note-1">[1]</AnchorLink></Serif>
 - Creative uses of ASTs & compilers&nbsp;
 <Serif bold as="span"><AnchorLink href="#note-2">[2]</AnchorLink></Serif>
-- Jamstack plugins and tools&nbsp;
+- Writing code that produces code&nbsp;
 <Serif bold as="span"><AnchorLink href="#note-3">[3]</AnchorLink></Serif>
-- Release an MDX low-code platform
 
-Although I've been coding for some years now, I consider myself far from being a proven developer yet.
+Although I've been coding for some years now, I consider myself far from being a proven dev yet. I’ve struggled at achieving things for a long time and I need to gain a better understanding of what helps me succeed and what does not.
 
 ##### this year
 I have been working on somehting intersting. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make.
@@ -72,7 +73,8 @@ I algo got diagnosed with tinnitus.
   [2] See TryCereals.
 </Serif>
 <Serif bold sx={{ mb: 1, px: 0, fontSize: '15px', color: '#111' }}>
-  [3] I'm talking about creative ways to use syntax trees. Like this attempt.
+  [3] I'm super inspired by <em>blocks-ui</em>, which brings design and code altogher by outputting production-ready JSX.
+  Things that output Domain-specific language permits a low-coding approach that I want to explore more & more.
 </Serif>
 
 </SectionScroll>
@@ -88,8 +90,9 @@ and triggered a new deployment!
 
 <List>
 
-- [Netlify Plugin Search](https://test.com)
-- [Babel Transform Config](https://test.com)
+- [Netlify Plugin Search](https://github.com/sw-yx/netlify-plugin-search-index/pull/3)
+- [Babel Transform Config](https://github.com/hypervillain/babel-transform-config)
+- [Vue essential slices](https://github.com/prismicio/vue-essential-slices)
 
 </List>
 <Paragraph my={1}>
@@ -100,6 +103,7 @@ and triggered a new deployment!
 
 - [Prismic ReactJS](https://test.com)
 - [Prismic Nuxt](https://test.com)
+- [Slice Machine](https://github.com/prismicio/sm-commons)
 
 
 </List>
@@ -141,17 +145,16 @@ and triggered a new deployment!
 &gt; <Link as="a" href="/blog">twitter</Link>
 
 </Box>
-<Image src="/tyrano2.png" width="100%" sx={{ position: 'absolute', zIndex: '-1', bottom: '16px', right: '16px'}} />
+<Image src="/tyrano.png" width="100%" sx={{ position: 'absolute', zIndex: '-1', bottom: '16px', right: '16px'}} />
 </Section>
 
 export const LayoutProps = {
-  noContainer: true
+  noContainer: true,
 }
 
 export const Layout = ({ children }) => (
   <Flex
-    noContainer
-    className="hello"
+    as="main"
     sx={{
       overflow: 'hidden',
       flexDirection: ['column', 'column', 'row']
@@ -161,4 +164,7 @@ export const Layout = ({ children }) => (
   </Flex>
 )
 
-export const hideLayout = false
+export const meta = {
+  title: 'hypervillain\'s website or the website of Hugo Villain',
+  tags: ['yellow', 'green', 'red']
+}

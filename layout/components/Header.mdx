@@ -1,16 +1,14 @@
 <Box
-  noContainer
   as="header"
   sx={{
-    variant: 'styles.header',
-    border: t => `1px solid ${t.colors.muted}`,
+    borderBottom: t => `1px solid ${t.colors.muted}`,
     px: 0
   }}
 >
   <Flex
     sx={{
       mx: 'auto',
-      px: 4,
+      px: [2, 4],
       alignItems: 'center',
     }}>
     <Link as="a" href='/'
@@ -29,15 +27,12 @@
         ml: 3,
         py: 2,
       }}>
-      Blog
-    </Link>
-    <Link as="a" href='/about'
-      sx={{
-        variant: 'styles.navlink',
-        ml: 3,
-        py: 2,
-      }}>
-      About
+      Writing
     </Link>
   </Flex>
 </Box>
+
+
+export const ContainerProps = {
+  noContainer: true
+}

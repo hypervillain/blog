@@ -141,6 +141,9 @@
     },
     "img": {
       "maxWidth": "100%"
+    },
+    "ul": {
+      "pl": [4, 4, 3, 4]
     }
   },
   "prism": {
@@ -171,7 +174,7 @@
       "minHeight": "calc(100vh - 2em)"
     },
     "container": {
-      "px": 4,
+      "px": [2, 4],
       "maxWidth": 780,
       "margin": "auto"
     }

@@ -1,0 +1,122 @@
+import { ArticleHead, Paragraph } from '../../customs'
+
+export const meta = {
+  title: 'Transform config files using Babel',
+  headline: 'The creative way #1',
+  excerpt: 'or why the word "programatic" makes for a great afternoon',
+  date: '2020-04-30',
+  tags: ['ast', 'babel', 'code']
+}
+
+export const LayoutProps = {
+  noContainer: true,
+  sx: { maxWidth: '720px', margin:'auto', px: [3, 0] }
+}
+
+<ArticleHead {...meta} sx={{ mx: [ 0, 2 ]}} />
+
+<Paragraph sx={{ mb: 4 }}>
+
+Most of frameworks like Nuxt and Next rely on `[framework].config.js` files to override their default behaviour.
+
+👉[jump to code](https://github.com/hypervillain/babel-transform-config) if you have some experience with Babylon parse, Babel transform & traverse!
+
+Here is a minimal Nuxt config file:
+
+</Paragraph>
+
+
+````
+export default {
+  mode: 'universal',
+  css: [],
+  modules: ['@org/my-nuxt-module'],
+  build: {
+    extend(config, ctx) { }
+  }
+};
+````
+I believe this is pretty straightforward in terms of DX. But what if you need to update this config programmatically? Because it's a JS file (hard to predict) and because developers are developers (messy/hard to predict), using Regex does not feel like the right solution. Instead, let's take a step back and treat code as its underlying tree structure, on AST explorer:
+
+<Image width="772" alt="Screenshot 2020-03-19 at 15 22 11" src="https://user-images.githubusercontent.com/6568065/77077408-793a7680-69f5-11ea-9645-1ce7118735d9.png" />
+
+ 👉 [view on AST explorer](https://astexplorer.net/#/gist/5b11ef838cbdbd920418871a047292ca/21036e7278f438a638e7991a81a0b0fda6ee0ae0)
+
+Fortunately, you don't need a browser to log this tree, Babel standalone offers a function to do just that:
+
+```javascript
+const { transform} = require('@babel/standalone')
+const { code } = transform(code, {
+   plugins: [...]
+})
+````
+
+A you can see, `tranform` takes a second argument which looks a lot like what you fill your `babel.config.json` file with. Indeed, the way you usually use Babel is by passing a list of plugins that will _transform_ your ES6 files into browser readable javascript code. This transformation is called transpilation, or _source to source_ transformation.
+
+When you think about it, the same applies to our case: we have some code and want to produce some other code. Being a world-class dev, something should whisper inside you: it's your brain and it tells you to *write your own Babel plugin* 🤭
+
+I won't go into detail on how to create your own plugin because *1/* I'm not super experienced with them and *2/* I would be stating what already is in [Babel playbook](https://github.com/jamiebuilds/babel-handbook) because it's almost all I know 👍
+
+But here is a a good starter for what we need to achieve:
+
+```javascript
+module.exports = function({ types: t }, yourParams) {
+  return {
+    name: 'my-plugin',
+    visitor: {
+      // visit the node of type Program
+      Program(path) {
+        // First, find the exportDefaultObject
+        const exportDefaultObject = path.get('body')
+          .find((path) => path.isExportDefaultDeclaration() &&
+            path.node.declaration &&
+            path.node.declaration.type === 'ObjectExpression'
+          )
+
+        // Then, traverse it, visit each object property
+        // and if it matches yourParams[something], update it accordingly
+        exportDefaultObject.traverse({
+          ObjectProperty(path, state) {
+            console.log('objectProp key: ', path.node.key.name)
+            if (yourParams[path.node.key.name]) {
+              path.node.key.name = yourParams[path.node.key.name]
+            }
+          }
+        })
+      }
+    }
+  }
+}
+````
+
+And this is how you'd call it:
+
+```javascript
+const myPlugin = require('./demoPlugin')
+const { transform} = require('@babel/standalone')
+
+const code = `
+  export default {
+    key: 'value!',
+    otherKey: 'betterValue!'
+  }
+`
+const { code: newCode } = transform(code, {
+   plugins: [[myPlugin, { key: 'anotherKey', otherKey: 'betterKey' } ]]
+})
+
+console.log('new code', newCode)
+````
+
+Run the code and this should be the result of your transform:
+
+````javascript
+ export default {
+   anotherKey: 'value!',
+   betterKey: 'betterValue!'
+ };
+````
+
+Of course, in our case, we need to update ObjectProperty values, not keys! Also, we need to recursively create a path if it does not exist already. But that's for another time. If you need to programmatically transform your JS config files, feel free to try out this (young and naive) module or the Babel plugin that it uses under the hood: [https://github.com/hypervillain/babel-transform-config](https://github.com/hypervillain/babel-transform-config)
+
+cheers ✌️

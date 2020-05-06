@@ -1,17 +1,25 @@
-<Heading as="h1" my={4}>About</Heading>
+import { ChangeTheme } from '../customs'
 
-Here, some <em>about</em> content. Given a stream of elements too large to store in memory, pick a random element from the stream with uniform probability.
+<Text my={[2, 4]} sx={{ fontSize: ['18px', '24px'], fontWeight: '300', color: '#000', lineHeight: ['28px', '36px'], fontFamily: 'system-ui, sans-serif' }}>
 
-<Note sx={{ mb: 2 }}>
+For a full-fledged introduction to plugins it’s recommended to read the remark guides and study up on syntax trees.
+Now let’s consider an example where you want to pass all headings through the title module to ensure consistent capitalization. We can use unist-util-visit to visit all headings and change the text nodes with title(text).
+The first thing you want to do is install the unist-util-visit library. This is a utility library.
 
-I like this about page.
+Then you can first log out the nodes to see it in action.
+</Text>
 
-</Note>
+export const LayoutProps = {
+  noContainer: true
+}
 
-Custom cursors found on main page were copy-pasted from <a href="https://kare.com/">Susan Kare</a>'s Cairo font.
-
-states <a target="_blank" href="https://twitter.com/hypervillain">the person</a> who wrote this about page. Also, it comes page comes pre-packed with a library of components.
-
+export const Layout = ({ children }) => (
+  <Box
+    sx={{ px: [2, 4], py: [0, 2], maxWidth: '1180px' }}
+  >
+    { children }
+  </Box>
+)
 
 export const meta = {
   title: 'About this website'

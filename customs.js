@@ -1,5 +1,13 @@
 import { forwardRef, useRef } from 'react'
-import { Link, Box, Text } from 'theme-ui'
+import {
+  ThemeProvider,
+  Link,
+  Box,
+  Text,
+  Flex,
+  Heading,
+  Button
+} from 'theme-ui'
 
 const defaultPx = [3, 4, 2, 4]
 
@@ -32,7 +40,7 @@ function findLink(child) {
     mdxType,
     children
   } = child.props
-  if (mdxType === 'a') {
+  if (mdxType === 'a'|| (child.type.displayName === 'MDXCreateElement') && href) {
     return {
       href,
       target
@@ -80,7 +88,6 @@ export const Paragraph = ({
   ...props
 }) => (
   <Text
-    as="p"
     {...props}
     px={px}
   >
@@ -151,7 +158,8 @@ export const SectionScroll = (props) => {
 }
 
 export const List = ({
-  children
+  children,
+  sx
 }) => (
   <Box
     as="ul"
@@ -173,10 +181,11 @@ export const List = ({
       // },
       'a:hover': {
         color: t => t.colors ? t.colors.primary : '#111'
-      }
+      },
+      ...sx
     }}
   >
-    {React.Children.map(children.props.children, (child) => {
+    {React.Children.map(children.props ? children.props.children : children, (child) => {
       const maybeLink = findLink(child)
       const i = uniqueRand(Object.keys(cursors).length)
       const cursor = maybeLink ? Object.entries(cursors)[i][1] : 'initial'
@@ -184,7 +193,7 @@ export const List = ({
         ...child.props,
         children: maybeLink ? cursorStyle(child.props.children, cursor) : child.props.children,
         style: {
-          cursor: cursor
+          cursor,
         },
         ...(maybeLink ? {
           onClick: (e) => {
@@ -198,3 +207,106 @@ export const List = ({
     })}
   </Box>
 )
+
+export const Cards = ({
+    sxWrap = {},
+    sxUl,
+    sxLi,
+    ...props
+  }) => (
+  <Box sx={sxWrap}>
+    <Tiles
+      {...props}
+      sx={{
+        a: {
+          variant: 'text.heading',
+          display: 'block',
+          fontWeight: 'bold',
+          fontSize: 3,
+          color: 'inherit',
+          textDecoration: 'none',
+          ':hover,:focus': {
+            color: 'primary',
+          },
+        },
+      }}
+      sxUl={sxUl}
+      sxLi={sxLi}
+    />
+  </Box>
+)
+
+export const Tiles = ({ columns = 3, width, styles = {}, sxUl, sxLi, ...props }) => {
+  const gridTemplateColumns = width
+    ? `repeat(auto-fit, minmax(${width}px, 1fr))`
+    : ['auto', `repeat(${columns}, 1fr)`]
+
+  return (
+    <ThemeProvider
+      theme={{
+        styles: {
+          ol: {
+            listStyle: 'none',
+            display: 'grid',
+            gridTemplateColumns,
+            gridGap: 4,
+            p: 0,
+            m: 0,
+          },
+          ul: {
+            listStyle: 'none',
+            display: 'grid',
+            gridTemplateColumns,
+            gridGap: 4,
+            p: 0,
+            m: 0,
+            ...sxUl
+          },
+          li: sxLi,
+          ...styles
+        },
+      }}>
+      <Box {...props} />
+    </ThemeProvider>
+  )
+}
+
+export const ArticleHead = ({
+  title,
+  excerpt,
+  sx = {}
+}) => (
+  <Box
+    mb={4}
+    bg='muted'
+    py={4}
+    px={[3, 4]}
+    sx={{ ...sx }}
+   
+  >
+    <Flex
+      sx={{
+        alignItems: ['flex-start', 'center'],
+        flexDirection: ['column', 'row'],
+        margin: 'auto'
+      }}>
+      <Box sx={{ maxWidth: ['100%', '60%'],}}>
+        <Heading as="h1" sx={{ fontSize: 5 }}>
+          { title }
+        </Heading>
+        <Text mt={2} sx={{ maxWidth: '440px'}}>
+          { excerpt }
+        </Text>
+      </Box>
+      <Button ml={[null, 'auto']} mt={[3, 4]}  as="a" href='https://twitter.com/hypervillain'>
+        follow @hypervillain
+      </Button>
+    </Flex>
+  </Box>
+  )
+
+  export const ChangeTheme = ({ theme, values = {}  }) => {
+    const el = document.documentElement
+    Object.entries(theme || values).forEach(([k, v]) => el.style.setProperty(k, v))
+    return null
+  }

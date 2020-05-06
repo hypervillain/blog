@@ -1,3 +1,103 @@
-### Hello blog
+import { List, Cards, Serif, Tiles } from '../../customs'
 
-<Link as="a" href="/blog/example">Example post</Link>
+<Box
+  flex
+  py={4}
+  px={[2, 4]}
+  mb={4}
+  bg='muted'
+>
+  <Flex
+    sx={{
+      alignItems: ['flex-start', 'center'],
+      flexDirection: ['column', 'row']
+    }}>
+    <Box>
+      <Heading as="h1" sx={{ fontSize: 6 }}>
+        Le blog.<br />
+      </Heading>
+      <Text mt={2} sx={{ maxWidth: '440px'}}>
+        My name is Hugo Villain and this is my some time to time blog.
+        I mostly write about the Javascript toolchain. I keep people updated on Twitter so feel free to folow me there ✌️
+      </Text>
+    </Box>
+    <Button ml={[null, 'auto']} mt={[3, 4]}  as="a" href='https://twitter.com/hypervillain'>
+      follow @hypervillain
+    </Button>
+  </Flex>
+</Box>
+
+<Cards columns={2} flex sxWrap={{ my: 2, mb: 4, bg: 'primary', py: 4 }} sxUl={{ pl: 0 }} sxLi={{ border: '1px solid #111', bg: 'muted', p: 3, my: 0 }}>
+  <Heading as="h3" sx={{ color: '#FFF', fontSize: 4, mb: 4 }}>
+    Syntax trees, the creative way
+  </Heading>
+  <ul>
+    { Object.entries(db).filter(([_, {from}]) => from.includes('blog')).map(([slug, { excerpt, headline, description, date, title, tags, index }], i) => (
+      <li key={slug}>
+        <Link as="a" href={slug}>
+          {title}&nbsp;
+          </Link>
+        {
+          (excerpt || description) ? <Text as="span" sx={{ display: ['block', 'inline'], maxWiidth: '480px'}}>{excerpt || description}</Text> : ''
+        }
+      </li>
+    ))}
+  </ul>
+</Cards>
+
+### Something else, but exciting
+
+<Cards columns={1} sxUl={{ pl: 0 }} sxLi={{ bg: 'muted', p: 3, my: 2 }} sxWrap={{ my: 2 }}>
+  <ul>
+    { Object.entries(db).filter(([_, {from}]) => from.includes('blog')).map(([slug, { excerpt, headline, description, date, title, tags, index }], i) => (
+      <li key={slug}>
+        <Link as="a" href={slug}>
+          {title}&nbsp;
+          </Link>
+        {
+          (excerpt || description) ? <Text as="span" sx={{ display: ['block', 'inline'], maxWiidth: '480px'}}>{excerpt || description}</Text> : ''
+        }
+        <Box sx={{ position: 'relative', display: 'block', mt: 2, fontWeight: 'thin', display: ['none', 'none', 'initial'] }}>
+          <Text>
+            {date}
+          </Text>
+        </Box>
+      </li>
+    ))}
+  </ul>
+</Cards>
+
+<List
+  sx={{
+    '&:first-child': { borderTop: 'none' },
+  }}
+  liPx={0}
+  width={320}
+>
+  <ul>
+    { Object.entries(db).filter(([_, {from}]) => from.includes('blog')).map(([slug, { excerpt, headline, description, date, title, tags, index }], i) => (
+      <li key={slug}>
+        <Link as="a" href={slug}>
+          {title}&nbsp;
+          </Link>
+        {
+          (excerpt || description) ? <Text as="span" sx={{ display: ['block', 'inline'], maxWiidth: '480px'}}>{excerpt || description}</Text> : ''
+        }
+        {/* <Box sx={{ position: 'absolute', right: '12px', fontWeight: 'thin', display: ['none', 'none', 'initial'] }}>
+          <Text as="span">
+            {date}
+          </Text>
+        </Box> */}
+      </li>
+    ))}
+  </ul>
+</List>
+
+export const ContainerProps = {
+  sx: { maxWidth: '940px' },
+  extend: true
+}
+
+export const meta = {
+  title: 'Le developer blog of Hugo "hyperVillain" Villain'
+}
