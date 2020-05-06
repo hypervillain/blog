@@ -1,8 +1,14 @@
 [build]
   base = "next/"
-  command = "echo 'hello Netlify build'"
+  command = "yarn build:site"
   publish = "next/out"
   functions = "next/functions"
+
+
+[[plugins]]
+  package = "./plugins/prepare/index.js"
+  [plugins.inputs]
+    appFolder = "app"
 
 [[plugins]]
   package = "./plugins/api/index.js"
