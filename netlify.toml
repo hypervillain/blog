@@ -6,6 +6,9 @@
 
 
 [[plugins]]
+package = "netlify-plugin-cache-nextjs"
+
+[[plugins]]
   package = "./plugins/prepare/index.js"
   [plugins.inputs]
     appFolder = "app"
